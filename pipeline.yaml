@@ -1,0 +1,35 @@
+description: Simple tutorial pipeline for LSSTComCam (roughly Step 1 of full Data Reduction Pipeline or DRP)
+instrument: lsst.obs.lsst.LsstComCam
+tasks:
+  isr: 
+    class: lsst.ip.isr.IsrTaskLSST
+    config:
+      doBias: true
+      doDark: true
+      doFlat: false
+      doAssembleCcd: true
+      doDeferredCharge: false
+      doBrighterFatter: true
+      doCalculateStatistics: true
+      doStandardStatistics: true
+      isrStats.doCtiStatistics: true
+      doAmpOffset: true
+      ampOffset.doApplyAmpOffset: false
+  characterizeImage:
+    class: lsst.pipe.tasks.characterizeImage.CharacterizeImageTask
+  calibrate:
+    class: lsst.pipe.tasks.calibrate.CalibrateTask
+  writeSourceTable:
+    class: lsst.pipe.tasks.postprocess.WriteSourceTableTask
+  transformSourceTable:
+    class: lsst.pipe.tasks.postprocess.TransformSourceTableTask
+  consolidateSourceTable:
+    class: lsst.pipe.tasks.postprocess.ConsolidateSourceTableTask
+  consolidateVisitSummary:
+    class: lsst.pipe.tasks.postprocess.ConsolidateVisitSummaryTask
+  isolatedStarAssociation:
+    class: lsst.pipe.tasks.isolatedStarAssociation.IsolatedStarAssociationTask
+    config:
+      connections.source_table_visit: sourceTable_visit
+  finalizeCharacterization:
+    class: lsst.pipe.tasks.finalizeCharacterization.FinalizeCharacterizationTask

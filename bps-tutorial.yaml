@@ -1,0 +1,13 @@
+pipelineYaml: "$TUTORIALDIR/pipeline.yaml"
+
+project: dev
+campaign: quick
+computeSite: s3df
+submitPath: $SCRATCH/submit/{outputRun}
+
+payload:
+  # Auto prepends #u/${USER}
+  payloadName: "tutorial/w_2024_45/drp_step1"
+  butlerConfig: "/repo/embargo"
+  inCollection: "LSSTComCam/raw/all,LSSTComCam/defaults"
+  dataQuery: "exposure.day_obs=20241105 and exposure.seq_num IN(240..250)"

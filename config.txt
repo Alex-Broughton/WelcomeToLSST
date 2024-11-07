@@ -1,0 +1,11 @@
+Host slac*
+        User abrought
+
+Host slacl
+        Hostname s3dflogin.slac.stanford.edu
+
+Host slacd
+        Hostname sdfrome001
+        ProxyJump slacl
+        ServerAliveInterval 120
+	ServerAliveCountMax 25
